@@ -103,6 +103,7 @@ public class EthicChallenge extends HttpServlet {
         if (ajax){
         	System.out.println("ajax request");
         	List<String> list = new ArrayList<String>();
+        	list.add(fileName);
         	list.add(wordCount);
         	list.add(charCount);
         	list.addAll(listOfPals);

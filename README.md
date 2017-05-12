@@ -9,9 +9,14 @@ For Palindromes calculation, words with "," and "'" are allowed to be included i
 The code checks for single words, numbers and phrases that would be considered a palindrome. 
 Search is performed sentence by sentence. Therefore, palindromes longer than a single sentence will not be checked. 
 
+Form currently submits using an ajax requests, but also has capability for traditional post requests. 
+
+Files uploaded must be text files and less than 512 MB. 
+
 External Libraries Used:
 1.  JSTL
 2.  Apache Commons IO
 3.  Apache Commons Fileupload
+4.  Google GSON
 
 Code is written with Java 8 and uses Tomcat 9.0

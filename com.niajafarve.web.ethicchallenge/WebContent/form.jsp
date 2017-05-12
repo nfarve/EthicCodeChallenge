@@ -35,9 +35,12 @@
 	    	        	console.log(result);
 	    	        	$.each(result, function(index,item){
 	    	        		if (index == 0){
-	    	        			$("#count").text("# of words: " +item);
+	    	        			$("#filename").text("Filename " +item);
 	    	        		}
 	    	        		else if(index ==1){
+	    	        			$("#count").text("# of words: " +item);
+	    	        		}
+	    	        		else if (index ==2){
 	    	        			$("#chars").text("# of characters: " + item);
 	    	        		}
 	    	        		else{
