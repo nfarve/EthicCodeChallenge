@@ -21,10 +21,9 @@
    
 	
 	<h2>Results:</h2>
-	<p>${filename }</p>
-	<p>${filecontenttype }</p>
-	<p>${wordcount }</p>
-	<p>${charcount }</p>
+	<p>Filename: ${filename }</p>
+	<p># of words: ${wordcount }</p>
+	<p># of characters: ${charcount }</p>
 	<h3>Palindromes:</h3>
 	<table>
 	  <c:forEach items="${palList}" var="item">

@@ -1,9 +1,6 @@
 package com.niajafarve.web.ethicchallenge.filemetrics;
 
 import static org.junit.Assert.*;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
 
 import org.junit.Test;
@@ -62,7 +59,14 @@ public class FileMetricsTest {
 		List<String> list2 = fm.palindromes("racecar adsa asdasd 12321 asdads, dasads madam madam Im adam");//racear, 12321, madam, madam Im adam
 		List<String> list4 = fm.palindromes("racecar adsa asdasd 12321\n asdads, dasads madam\n madam Im\n adam");//racear, 12321, madam, madam Im adam
 		List<String> list3 = fm.palindromes("sadsjasdjdshjkad asjh adskjh asdkjh asdjkh asdjh adsjk hadskjh adsjk adsjkh ads");
-		List<String> list5 = fm.palindromes("Racecar. Madam Im. Adam.");
+		List<String> list5 = fm.palindromes("Racecar. Madam Im. Adam.");//racecar madam
+		List<String> list6 = fm.palindromes("Racecar.\n Madam Im. Adam.");//Test to make sure new lines have no effect
+		List<String> list7 = fm.palindromes("COPYRIGHT, 1877, BY JAMES R. OSGOOD AND CO.\n 1897, BY HOUGHTON, MIFFLIN AND CO.\n ALL RIGHTS RESERVED James R.\n sfsdfsdfsfsfdsfsf Im. Adam.");//test with several periods
+		List<String> list8 = fm.palindromes("*** &&&&& R&R&R&R&R&R&R");//test with special characters
+
+//		for (String element : list7) {
+//		    System.out.println(element);
+//		}
 		
 		assertEquals(0,list1.size());
 		assertEquals(0, list3.size());
@@ -77,6 +81,9 @@ public class FileMetricsTest {
 		assertEquals("12321", list4.get(1));
 		assertEquals("madam Im adam", list4.get(4));
 		assertEquals(2,list5.size());
+		assertEquals(2,list6.size());
+		assertEquals(0,list7.size());
+		assertEquals(0,list8.size());
 		
 	}
 

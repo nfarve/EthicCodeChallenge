@@ -1,16 +1,11 @@
 package com.niajafarve.web.ethicchallenge.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -32,10 +27,8 @@ import com.niajafarve.web.ethicchallenge.filemetrics.FileMetrics;
 @MultipartConfig
 public class EthicChallenge extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String UPLOAD_DIRECTORY = "upload";
 	private static final int THRESHOLD_SIZE     = 1024 * 1024 * 3;  // 3MB
 	private static final int MAX_FILE_SIZE      = 1024 * 1024 * 512; // 512MB
-	private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 530; // 530MB
 	
 	private FileMetrics fm;
        
@@ -60,7 +53,6 @@ public class EthicChallenge extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Trying to Post");
 		Part filePart = request.getPart("uploadFile"); 
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 		InputStream fileContent = filePart.getInputStream();
@@ -71,32 +63,38 @@ public class EthicChallenge extends HttpServlet {
 		if (!fileContentType.contains("text/plain")){
 			request.setAttribute("message", "You Must Upload A Text File");
 			
-		}else{
+		}
+		else if (filePart.getSize() > MAX_FILE_SIZE){
+			request.setAttribute("message", "This file is too large. Max file size is " + String.valueOf(MAX_FILE_SIZE) + "MB");
+		}
+		else{
+			//move inputstream to a StringWriters so we can use the contents more than once
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(fileContent, writer,StandardCharsets.UTF_8.name());
+			
+			//Get the word count for file
 			wordCount = String.valueOf(fm.wordCount(writer.toString()));
+			request.setAttribute("wordcount", wordCount);
+			System.out.println(wordCount);
+			
+			//Get character count for file
+			request.setAttribute("charcount", String.valueOf(fm.charCount(writer.toString())));
+			
+			//Get the list of palindromes for the file
 			List<String> listOfPals = fm.palindromes(writer.toString());
 			request.setAttribute("palList", listOfPals);
-			for (String element : listOfPals) {
-			    System.out.println(element);
-			}
+			
+//			for (String element : listOfPals) {
+//			    System.out.println(element);
+//			}
 //			String theString = IOUtils.toString(fileContent, StandardCharsets.UTF_8.name()); 
-	        System.out.println(wordCount);
-	        request.setAttribute("wordcount", wordCount);
-	        request.setAttribute("charcount", String.valueOf(fm.charCount(writer.toString())));
+	        
+	
 			
 		}
-		
-		
-        System.out.println("username: " + fileName);
- 
-
-         
-        request.setAttribute("filename", fileName); 
-
-  
-       
-        
+	
+        System.out.println("filename: " + fileName);
+        request.setAttribute("filename", fileName);  
         request.getRequestDispatcher("/form.jsp").forward(request, response);
 	}
 
