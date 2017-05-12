@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.io.IOUtils;
 
+import com.google.gson.Gson;
 import com.niajafarve.web.ethicchallenge.filemetrics.FileMetrics;
 
 
@@ -56,8 +58,9 @@ public class EthicChallenge extends HttpServlet {
 		Part filePart = request.getPart("uploadFile"); 
 		String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 		InputStream fileContent = filePart.getInputStream();
-		String wordCount; 
-		
+		String wordCount = ""; 
+		String charCount = "";
+		List<String> listOfPals = null;
 		fm = new FileMetrics();
 		String fileContentType = filePart.getContentType();
 		if (!fileContentType.contains("text/plain")){
@@ -78,10 +81,11 @@ public class EthicChallenge extends HttpServlet {
 			System.out.println(wordCount);
 			
 			//Get character count for file
-			request.setAttribute("charcount", String.valueOf(fm.charCount(writer.toString())));
+			charCount = String.valueOf(fm.charCount(writer.toString()));
+			request.setAttribute("charcount", charCount);
 			
 			//Get the list of palindromes for the file
-			List<String> listOfPals = fm.palindromes(writer.toString());
+			listOfPals = fm.palindromes(writer.toString());
 			request.setAttribute("palList", listOfPals);
 			
 //			for (String element : listOfPals) {
@@ -93,9 +97,23 @@ public class EthicChallenge extends HttpServlet {
 			
 		}
 	
+		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         System.out.println("filename: " + fileName);
         request.setAttribute("filename", fileName);  
-        request.getRequestDispatcher("/form.jsp").forward(request, response);
+        if (ajax){
+        	System.out.println("ajax request");
+        	List<String> list = new ArrayList<String>();
+        	list.add(wordCount);
+        	list.add(charCount);
+        	list.addAll(listOfPals);
+        	String json = new Gson().toJson(list);
+        	response.setContentType("application/json");
+        	response.setCharacterEncoding("UTF-8");
+        	response.getWriter().write(json);
+        }
+        else{
+        	request.getRequestDispatcher("/form.jsp").forward(request, response);
+        }
 	}
 
 }

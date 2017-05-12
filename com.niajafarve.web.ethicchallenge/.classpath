@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="/Users/niajafarve/Downloads/commons-fileupload-1.3.2-bin/lib/commons-fileupload-1.3.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/Users/niajafarve/Downloads/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="/Users/niajafarve/Downloads/gson-2.8.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

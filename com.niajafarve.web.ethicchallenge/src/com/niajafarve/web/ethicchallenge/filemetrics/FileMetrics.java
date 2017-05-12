@@ -36,6 +36,7 @@ public class FileMetrics {
 		String test;
 		List<String> listOfPal = new ArrayList<String>();
 		
+		//Exclude special characters
 		Pattern p = Pattern.compile("[@#$%^&*()]", Pattern.CASE_INSENSITIVE);
 		for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()) {
 			str = strinput.substring(start,end).trim();
