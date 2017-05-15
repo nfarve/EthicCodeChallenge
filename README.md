@@ -20,3 +20,9 @@ External Libraries Used:
 4.  Google GSON
 
 Code is written with Java 8 and uses Tomcat 9.0
+
+To deploy:
+1.  Ensure there is a user with manager-gui and manager-script roles on your tomcat server
+2.  Update build.properties with the username and password of user above
+3.  Run ant to build all neccessary files
+4.  Run "ant deploy" to deploy to the path /ethic
