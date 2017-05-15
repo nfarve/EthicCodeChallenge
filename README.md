@@ -14,15 +14,19 @@ Form currently submits using an ajax requests, but also has capability for tradi
 Files uploaded must be text files and less than 512 MB. 
 
 External Libraries Used:
-1.  JSTL
-2.  Apache Commons IO
-3.  Apache Commons Fileupload
-4.  Google GSON
+1.  JSTL - to use loop in frontend
+2.  Apache Commons IO - to copy data from inputstream in backend 
+3.  Apache Commons Fileupload - to use Fileupload features in the backend server
+4.  Google GSON  - to create json for ajax requests
 
 Code is written with Java 8 and uses Tomcat 9.0
 
 To deploy:
 1.  Ensure there is a user with manager-gui and manager-script roles on your tomcat server
 2.  Update build.properties with the username and password of user above
-3.  Run ant to build all neccessary files
+3.  Run "ant" to build all necessary files
+4.  Run "ant war" to make the war file
 4.  Run "ant deploy" to deploy to the path /ethic
+
+To Run Tests:
+1. Run "ant test"

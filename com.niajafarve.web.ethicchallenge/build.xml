@@ -13,7 +13,7 @@
     <property name="dirs.base" value="${basedir}"/>
     <property name="classdir" value="${dirs.base}/build/src"/>
     <property name="src" value="${dirs.base}/src"/>
-    <property file="build.properties" />
+    <property file="build.properties2" />
               	
    
 
@@ -109,7 +109,7 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="FileMetricsTest (1)">
+    <target name="test">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
