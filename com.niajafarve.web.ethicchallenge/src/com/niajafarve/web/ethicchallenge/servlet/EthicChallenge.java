@@ -31,8 +31,7 @@ public class EthicChallenge extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int THRESHOLD_SIZE     = 1024 * 1024 * 3;  // 3MB
 	private static final int MAX_FILE_SIZE      = 1024 * 1024 * 512; // 512MB
-	
-	private FileMetrics fm;
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -61,7 +60,6 @@ public class EthicChallenge extends HttpServlet {
 		String wordCount = ""; 
 		String charCount = "";
 		List<String> listOfPals = null;
-		fm = new FileMetrics();
 		String fileContentType = filePart.getContentType();
 		if (!fileContentType.contains("text/plain")){
 			request.setAttribute("message", "You Must Upload A Text File");
@@ -76,16 +74,16 @@ public class EthicChallenge extends HttpServlet {
 			IOUtils.copy(fileContent, writer,StandardCharsets.UTF_8.name());
 			
 			//Get the word count for file
-			wordCount = String.valueOf(fm.wordCount(writer.toString()));
+			wordCount = String.valueOf(FileMetrics.wordCount(writer.toString()));
 			request.setAttribute("wordcount", wordCount);
 			System.out.println(wordCount);
 			
 			//Get character count for file
-			charCount = String.valueOf(fm.charCount(writer.toString()));
+			charCount = String.valueOf(FileMetrics.charCount(writer.toString()));
 			request.setAttribute("charcount", charCount);
 			
 			//Get the list of palindromes for the file
-			listOfPals = fm.palindromes(writer.toString());
+			listOfPals = FileMetrics.palindromes(writer.toString());
 			request.setAttribute("palList", listOfPals);
 			
 //			for (String element : listOfPals) {

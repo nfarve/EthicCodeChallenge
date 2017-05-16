@@ -9,12 +9,10 @@ import org.junit.Test;
 
 
 public class FileMetricsTest {
-	private FileMetrics fm;
 	
 
 	@Test
 	public void testWordCount() {
-		fm = new FileMetrics();
 		String str1 = "some test text that should be 8 words";
 		String str2 = "asda\n"
 					+ "d adsjhadkhad akjdh\n"
@@ -25,17 +23,17 @@ public class FileMetricsTest {
 					+ "asdjhas djakhsdakjsdherdfjashdf ksjhdf\n" 
 					+ "dfjks df\n";//33
 	
-		int wordCount1 = fm.wordCount(str1);
-		int wordCount2 = fm.wordCount(str2);
+		int wordCount1 = FileMetrics.wordCount(str1);
+		int wordCount2 = FileMetrics.wordCount(str2);
 		assertEquals(8,wordCount1);
-		assertEquals(0, fm.wordCount(""));
+		assertEquals(0, FileMetrics.wordCount(""));
 		assertEquals(33, wordCount2);
 		
 	}
 	
 	@Test
 	public void testCharacterCount(){
-		fm = new FileMetrics();
+		
 		String str1 = "Hello how are you";//17
 		String str2 = "";//0
 		String str3 = "asda\n"
@@ -46,23 +44,23 @@ public class FileMetricsTest {
 					+ "asdjadfhksjdfh sf\n"
 					+ "asdjhas djakhsdakjsdherdfjashdf ksjhdf\n" 
 					+ "dfjks df";//255
-		assertEquals(17, fm.charCount(str1));
-		assertEquals(0, fm.charCount(str2));
-		assertEquals(255, fm.charCount(str3));
+		assertEquals(17, FileMetrics.charCount(str1));
+		assertEquals(0, FileMetrics.charCount(str2));
+		assertEquals(255, FileMetrics.charCount(str3));
 				
 	}
 	
 	@Test
 	public void testPalin(){
-		fm = new FileMetrics();
-		List<String> list1 = fm.palindromes("");
-		List<String> list2 = fm.palindromes("racecar adsa asdasd 12321 asdads, dasads madam madam Im adam");//racear, 12321, madam, madam Im adam
-		List<String> list4 = fm.palindromes("racecar adsa asdasd 12321\n asdads, dasads madam\n madam Im\n adam");//racear, 12321, madam, madam Im adam
-		List<String> list3 = fm.palindromes("sadsjasdjdshjkad asjh adskjh asdkjh asdjkh asdjh adsjk hadskjh adsjk adsjkh ads");
-		List<String> list5 = fm.palindromes("Racecar. Madam Im. Adam.");//racecar madam
-		List<String> list6 = fm.palindromes("Racecar.\n Madam Im. Adam.");//Test to make sure new lines have no effect
-		List<String> list7 = fm.palindromes("COPYRIGHT, 1877, BY JAMES R. OSGOOD AND CO.\n 1897, BY HOUGHTON, MIFFLIN AND CO.\n ALL RIGHTS RESERVED James R.\n sfsdfsdfsfsfdsfsf Im. Adam.");//test with several periods
-		List<String> list8 = fm.palindromes("*** &&&&& R&R&R&R&R&R&R");//test with special characters
+
+		List<String> list1 = FileMetrics.palindromes("");
+		List<String> list2 = FileMetrics.palindromes("racecar adsa asdasd 12321 asdads, dasads madam madam Im adam");//racear, 12321, madam, madam Im adam
+		List<String> list4 = FileMetrics.palindromes("racecar adsa asdasd 12321\n asdads, dasads madam\n madam Im\n adam");//racear, 12321, madam, madam Im adam
+		List<String> list3 = FileMetrics.palindromes("sadsjasdjdshjkad asjh adskjh asdkjh asdjkh asdjh adsjk hadskjh adsjk adsjkh ads");
+		List<String> list5 = FileMetrics.palindromes("Racecar. Madam Im. Adam.");//racecar madam
+		List<String> list6 = FileMetrics.palindromes("Racecar.\n Madam Im. Adam.");//Test to make sure new lines have no effect
+		List<String> list7 = FileMetrics.palindromes("COPYRIGHT, 1877, BY JAMES R. OSGOOD AND CO.\n 1897, BY HOUGHTON, MIFFLIN AND CO.\n ALL RIGHTS RESERVED James R.\n sfsdfsdfsfsfdsfsf Im. Adam.");//test with several periods
+		List<String> list8 = FileMetrics.palindromes("*** &&&&& R&R&R&R&R&R&R");//test with special characters
 
 //		for (String element : list7) {
 //		    System.out.println(element);

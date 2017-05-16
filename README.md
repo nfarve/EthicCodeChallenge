@@ -26,7 +26,7 @@ To deploy:
 2.  Update build.properties with the username and password of user above
 3.  Run "ant" to build all necessary files
 4.  Run "ant war" to make the war file
-4.  Run "ant deploy" to deploy to the path /ethic
+5.  Run "ant deploy" to deploy to the path /ethic
 
 To Run Tests:
 1. Run "ant test"
